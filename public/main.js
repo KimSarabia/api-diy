@@ -1,8 +1,8 @@
 'use strict';
 $(function(){
-  document.getElementByTagName('h1')[0].textContent = "WORKING";
+  console.log('works:', 'hello main!');
+  document.getElementsByTagName('h1')[0].textContent = "WORKING";
   $('button#getSquare').click(getSquare);
-  
 });
 
 function getSquare(){
@@ -16,4 +16,3 @@ function getSquare(){
     console.log('error:', error);
   });
 }
-});
