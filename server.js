@@ -1,15 +1,36 @@
 'use strict';
 
 var http = require('http');
+var fs = require('fs');
 
 const PORT = 8080;
 
-function handleRequest(req,res){
-  res.end('It works! Path Hit!' + req.url);
-}
+var server = http.createServer((req,res) => {
+  var params = req.url.split('/');
+  params.shift();
+  var resource = params.shift().toLowerCase();
 
-var server = http.createServer(handleRequest);
+  switch(resource) {
+    case 'math': require('./math')(params,res);break;
+    case 'str': require('./str')(req, res, params); break;
+    case '':
+     var data = fs.readFileSync('./public/index.html');
+     res.end( data.toString() );
+     break;
+    default:
+    fs.readFile(`./public/${resource}`, (err,data) => {
+      if(err) {
+        res.statusCode = 404;
+        res.write('Oops. Something went wrong.');
+        res.end('\n');
+      } else {
+        res.end( data.toString() );
+      }
+    });
+  }
+});
 
-server.listen(PORT, function(){
-  console.log("Server listening on: http://localhost:%s",PORT);
-})
+server.listen(PORT, function(err){
+  if(err) return console.log('error!:', err);
+  console.log(`Server listening on port ${PORT}`);
+});
