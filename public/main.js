@@ -95,5 +95,14 @@ function getDiff() {
 }
 
 function getGravatar() {
-    console.log('gravatar', 'gravatar!');
+    var gravatar = $('#subtrahend').val();
+
+    $.get(`/math/diff/${minuend}/${subtrahend}`)
+        .done(function(data) {
+            console.log('data:', data);
+            $('#diffResult').text(data);
+        })
+        .fail(function(error) {
+            console.log('error:', error);
+        });
 }
