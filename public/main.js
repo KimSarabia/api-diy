@@ -8,7 +8,9 @@ $(function() {
     $('button#getQuotient').click(getQuotient);
     $('button#getDiff').click(getDiff);
     $('button#getSum').click(getSum);
+    $('button#getWordCount').click(getWordCount);
     $('button#getGravatar').click(getGravatar);
+
 });
 
 function getSquare() {
@@ -94,13 +96,28 @@ function getDiff() {
         });
 }
 
-function getGravatar() {
-    var gravatar = $('#subtrahend').val();
 
-    $.get(`/math/diff/${minuend}/${subtrahend}`)
+function getWordCount() {
+  console.log('word count:', 'count!');
+    var count = $('#count').val();
+
+    $.get(`/str/wordCount/${count}/`)
         .done(function(data) {
             console.log('data:', data);
-            $('#diffResult').text(data);
+            $('#countResult').text(data);
+        })
+        .fail(function(error) {
+            console.log('error:', error);
+        });
+}
+
+function getGravatar() {
+    var gravatar = $('#gravatarThing').val();
+
+    $.get(`/gravatar/diff/${minuend}`)
+        .done(function(data) {
+            console.log('data:', data);
+            $('#resUrl').text(data);
         })
         .fail(function(error) {
             console.log('error:', error);
