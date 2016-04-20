@@ -1,14 +1,15 @@
 'use strict';
 
+const PORT = 8080;
+
 var http = require('http');
 var fs = require('fs');
-
-const PORT = 8080;
 
 var server = http.createServer((req,res) => {
   var params = req.url.split('/');
   params.shift();
   var resource = params.shift().toLowerCase();
+  console.log(resource);
 
   switch(resource) {
     case 'math': require('./math')(params,res);break;
@@ -17,6 +18,7 @@ var server = http.createServer((req,res) => {
      var data = fs.readFileSync('./public/index.html');
      res.end( data.toString() );
      break;
+
     default:
     fs.readFile(`./public/${resource}`, (err,data) => {
       if(err) {
