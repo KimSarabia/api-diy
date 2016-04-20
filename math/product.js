@@ -5,8 +5,3 @@ module.exports = function(numStrs) {
     return product * num;
   }, 1);
 }
-// multiply: function product(x){
-//   return x.reduce(function(acc, curr){
-//     return acc * curr;
-//   }, 1);
-// },
