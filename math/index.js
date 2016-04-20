@@ -15,8 +15,23 @@ module.exports = function(params, res){
     break;
 
     case 'product':
-    var diff = require('./product')(params);
+    var product = require('./product')(params);
     res.write(`${product}`);
+    break;
+
+    case 'quotient':
+    var quotient = require('./quotient')(params);
+    res.write(`${quotient}`);
+    break;
+
+    case 'square':
+    var square = require('./square')(params);
+    res.write(`${square}`);
+    break;
+
+    case 'cube':
+    var cube = require('./cube')(params);
+    res.write(`${cube}`);
     break;
   }
   res.end('\n');
